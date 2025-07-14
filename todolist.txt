@@ -1,0 +1,44 @@
+creation de page :
+    -liste
+    -login
+    -inscription
+    -traitement_inscription
+    -traitement_login
+    -index
+    -fonction
+    -fiche personne
+    -fiche objet
+focntion :
+creerMembre(...)
+→ Insère un nouvel utilisateur dans la table emp_membre avec une image de profil par défaut.
+
+verifycompte(...)
+→ Vérifie si un compte existe avec un email et un mot de passe donnés
+
+getidbyemail(...)
+→ Récupère l’ID (id_membre) d’un utilisateur à partir de son adresse email.
+
+listeObjets()
+→ Récupère tous les objets (avec leurs infos de membre et emprunt) depuis la vue emp_view_objet_and_membre_and_emprunt.
+
+get_categories()
+→ Récupère toutes les catégories d’objets triées par nom.
+
+lister_tous_objets()
+→ Récupère tous les objets avec leurs informations complètes depuis la vue emp_view_objets_complet.
+
+filtrer_objets_par_categorie($categorie)
+→ Récupère tous les objets d'une catégorie spécifique.
+
+get by name()
+ recupere le id de la personne via le nom
+
+get id by name()
+recupere le id de l objet
+
+get objet by id with view()
+prend le id et retourne un tableau avec toutes les unfos de l objet
+
+info membre()
+
+recupere et donne dans un tableau toutes les infos sur une oersonne via le id 
