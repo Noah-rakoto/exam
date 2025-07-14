@@ -16,14 +16,24 @@ function creer_emprunt($nom_objet, $id_emprunteur, $duree)
 {
     $conn = dbconnect();
     // Récupérer l'id de l'objet
-    $sql_objet = "SELECT id_objet FROM emp_objet WHERE nom_objet = '" . mysqli_real_escape_string($conn, $nom_objet) . "' AND statut = 'Disponible'";
+    $sql_objet = "SELECT id_objet FROM emp_objet WHERE nom_objet = '" . mysqli_real_escape_string($conn, $nom_objet) . "'";
     $res_objet = mysqli_query($conn, $sql_objet);
     if (!$res_objet || mysqli_num_rows($res_objet) === 0) {
         mysqli_close($conn);
-        return "Objet non disponible.";
+        return "Objet introuvable.";
     }
     $row = mysqli_fetch_assoc($res_objet);
     $id_objet = $row['id_objet'];
+
+    // Vérifier la disponibilité : on regarde la date de retour la plus récente
+    $sql_last_emprunt = "SELECT date_retour FROM emp_emprunt WHERE id_objet = $id_objet ORDER BY date_retour DESC LIMIT 1";
+    $res_last = mysqli_query($conn, $sql_last_emprunt);
+    if ($res_last && ($row_last = mysqli_fetch_assoc($res_last))) {
+        if ($row_last['date_retour'] !== null && $row_last['date_retour'] >= date('Y-m-d')) {
+            mysqli_close($conn);
+            return "Objet déjà emprunté.";
+        }
+    }
 
     // Calculer la date de retour
     $date_emprunt = date('Y-m-d');
